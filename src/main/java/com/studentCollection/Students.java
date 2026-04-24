@@ -3,14 +3,17 @@ package com.studentCollection;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Student1 {
+public class Students {
 
     private String name;
     private String course;
     private String age;
     private String email;
+    public Students(){
 
-    public Student1(String name, String course, String age, String email) {
+    }
+
+    public Students(String name, String course, String age, String email) {
         this.name = name;
         this.course = course;
         this.age = age;

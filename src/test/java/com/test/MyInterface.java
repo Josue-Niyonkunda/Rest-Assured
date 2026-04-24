@@ -1,4 +1,5 @@
 package com.test;
 
-public class MyInterface {
+public interface MyInterface {
+  void printMe();
 }

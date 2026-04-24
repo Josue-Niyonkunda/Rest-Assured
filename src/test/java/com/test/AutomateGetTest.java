@@ -1,7 +1,6 @@
 package com.test;
 
 import io.restassured.config.LogConfig;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 
-public class AutomateGet {
+public class AutomateGetTest extends BaseTest {
     @Test
     public void validate_status_code(){
         given(). baseUri("http://localhost:3000/")

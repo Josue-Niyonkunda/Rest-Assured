@@ -3,6 +3,8 @@ package com.pojo;
 public class SimplePojo {
     private String key1;
     private String value1;
+    public SimplePojo() {
+    }
     public SimplePojo(String key1, String value1) {
         this.key1 = key1;
         this.value1 = value1;

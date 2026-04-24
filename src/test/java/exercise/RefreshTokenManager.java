@@ -1,58 +1,61 @@
-package utils;
+package exercise;
+
 import io.restassured.response.Response;
+import utils.ConfigLoader;
 
 import java.time.Instant;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.given;
 
 public class RefreshTokenManager {
-    private static String access_token;
-    private static Instant expiry_time;
-    public static String getToken() {
-        try {
-            if (access_token == null || expiry_time == null || Instant.now().isAfter(expiry_time)) {
-                System.out.println("Renewing token.....");
 
-                ConfigLoader config = ConfigLoader.getInstance();
+    private static String accessToken;
+    private static Instant expiryTime;
 
-                Response response = refreshAccessToken(
-                        config.getClientId(),
-                        config.getClientSecret(),
-                        config.getRefreshToken()
-                );
+    public static synchronized String getToken() {
 
-                access_token = response.path("access_token");
+        if (accessToken == null || expiryTime == null || Instant.now().isAfter(expiryTime)) {
+            System.out.println("🔄 Access token expired or missing. Refreshing...");
 
-                int expiryDurationInSeconds = response.path("expires_in");
-                expiry_time = Instant.now().plusSeconds(expiryDurationInSeconds - 300);
+            Response response = refreshAccessToken();
 
-            } else {
-                System.out.println("token is good to use");
+            // ❗ handle failure properly
+            if (response.statusCode() != 200) {
+                System.err.println("❌ Token refresh failed:");
+                System.err.println(response.asPrettyString());
+                throw new RuntimeException("Failed to refresh access token. Check refresh token validity.");
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to get a token", e);
+
+            accessToken = response.path("access_token");
+
+            Integer expiresIn = response.path("expires_in");
+            expiryTime = Instant.now().plusSeconds(expiresIn - 300);
+
+            System.out.println("✅ New access token generated");
+        } else {
+            System.out.println("✔ Using cached access token");
         }
 
-        return access_token;
+        return accessToken;
     }
 
+    private static Response refreshAccessToken() {
 
-    public static Response refreshAccessToken(String clientId,
-                                              String clientSecret,
-                                              String refreshToken) {
+        ConfigLoader config = ConfigLoader.getInstance();
 
         return given()
                 .baseUri("https://oauth2.googleapis.com")
                 .contentType("application/x-www-form-urlencoded")
-                .formParam("client_id", clientId)
-                .formParam("client_secret", clientSecret)
-                .formParam("refresh_token", refreshToken)
+                .formParam("client_id", config.getClientId())
+                .formParam("client_secret", config.getClientSecret())
+                .formParam("refresh_token", config.getRefreshToken())
                 .formParam("grant_type", "refresh_token")
                 .log().ifValidationFails()
+
                 .when()
                 .post("/token")
+
                 .then()
-                .statusCode(200)
                 .extract()
                 .response();
     }

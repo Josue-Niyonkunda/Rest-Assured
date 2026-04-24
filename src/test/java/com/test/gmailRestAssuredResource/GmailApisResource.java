@@ -1,4 +1,4 @@
-package com.test.gmailRestAssured;
+package com.test.gmailRestAssuredResource;
 
 import io.restassured.response.Response;
 
@@ -6,37 +6,38 @@ import java.util.Map;
 
 import static com.test.gmailRestAssured.GmailSpecBuilderClass.getRequestSpecBuilder;
 import static com.test.gmailRestAssured.GmailSpecBuilderClass.getResponseBuilder;
+import static com.test.gmailRestAssuredResource.Routes.*;
 import static io.restassured.RestAssured.given;
 
-public class GmailApis {
+public class GmailApisResource {
 
 
-    public static Response post(Map<String, String> payload) {
-      return given(getRequestSpecBuilder()).basePath("/gmail/v1").
-                pathParam("emailId","josueniyonkunda22@gmail.com").body(payload)
-                .when().post("/users/{emailId}/messages/send").
+    public static Response post(Map<String, String> payload,String email) {
+      return given(getRequestSpecBuilder()).basePath(BASE_PART).
+                pathParam("emailId",email).body(payload)
+                .when().post(USERS+"/{emailId}"+MESSAGES+SENT).
               then().spec(getResponseBuilder()).extract().response();
 
     }
-    public static Response get(String messageId){
+    public static Response get(String messageId,String path,String email){
       return given(getRequestSpecBuilder())
-                .basePath("/gmail/v1")                        .
-                pathParam("emailId", "josueniyonkunda22@gmail.com")
+                .basePath(path)                        .
+                pathParam("emailId", email)
                 .pathParam("id", messageId)
                 .queryParam("format", "full")
                 .when()
-                .get("/users/{emailId}/messages/{id}")
+                .get(USERS+"/{emailId}"+MESSAGES+"/{id}")
                 .then()
                 .log().all()
                 .extract()
                 .response();
     }
-    public static Response delete(String messageId){
+    public static Response delete(String messageId,String basePath,String path){
        return given(getRequestSpecBuilder())
-                .basePath("/gmail/v1")
+                .basePath(basePath)
                 .pathParam("id", messageId)
                 .when()
-                .delete("/users/me/messages/{id}")
+                .delete(path)
                 .then().extract().response();
     }
 }

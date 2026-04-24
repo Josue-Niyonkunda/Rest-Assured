@@ -1,4 +1,4 @@
-package pojo.student;
+package com.pojoStudent;
 
 public class StudentRoot {
     public StudentRoot(){}

@@ -1,29 +1,21 @@
-package com.test.gmailSpecBuilder;
-
-import io.restassured.path.json.JsonPath;
+package com.test.gmailRestAssured;
 
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
-import java.io.InputStream;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.test.gmailSpecBuilder.GmailSpecBuilderClass.getRequestSpecBuilder;
+import static com.test.gmailRestAssured.GmailSpecBuilderClass.getRequestSpecBuilder;
 
-import static com.test.gmailSpecBuilder.GmailSpecBuilderClass.getResponseBuilder;
+import static com.test.gmailRestAssured.GmailSpecBuilderClass.getResponseBuilder;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 
 public class GmailAPIWithSpecBuilder {
-
-
-        String messageId="19db90940bc3cfb6";
-
-
 
         @Test
         public void getUserProfile(){

@@ -1,11 +1,8 @@
 package com.test;
 
-import org.testng.annotations.Test;
-
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-public class Base64Encoding {
+public class Base64EncodingTest {
 
     public static void main (String[] args){
         String usernameColonPassword="myUsername:myPassword";

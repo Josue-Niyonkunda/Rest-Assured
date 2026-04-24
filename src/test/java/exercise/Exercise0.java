@@ -16,7 +16,7 @@ import static io.restassured.RestAssured.*;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class Exercise3 {
+public class Exercise0 {
     ResponseSpecification customResponseSpecification;
 
     @BeforeClass

@@ -3,10 +3,8 @@ package com.test;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.config.EncoderConfig;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
-import io.restassured.mapper.ObjectMapperType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.specification.ResponseSpecification;
 import org.testng.annotations.BeforeClass;
@@ -20,7 +18,7 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
-public class GmailAPI {
+public class GmailAPITest {
     ResponseSpecification responseSpecification;
     String messageId;
     String accessToken="ya29.a0Aa7MYirZEUjO3yaB2mVdzoDCY7CLHDdLx-3zSSYW3WMSbQz7kOR7knHrwgjBUjOAigxKqnwpcYd3Dlr0OUhTLyWzwDDJC8zVn_lEG9fcCT9PZlQvKuh3vyqZhWRejy74XeU0L_sfy5suHZXmWL3xgYcpXKXuWuHofNjUNVtmEpGVCG4XQcVdQn6rYDUm7eDTNHmVbdJIaCgYKAaASARQSFQHGX2MiejYAfaPrgQ3pn335SpnhQQ0207";
