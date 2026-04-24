@@ -38,10 +38,10 @@ build/
 ### Mac OS ###
 .DS_Store
 src/test/java/exercise/RefreshTokenManager.java
-src/test/java/com/test/GmailAPITest.java
-src/test/resources/config.properties
-practicesoftwaretestingDevOps.yml
+/src/test/java/com/test/GmailAPITest.java
+/src/test/resources/config.properties
+/practicesoftwaretestingDevOps.yml
 .idea/inspectionProfiles/
-allure-results/
-RestAssured.log
+/allure-results/
+/RestAssured.log
 
